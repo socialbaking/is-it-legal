@@ -1,0 +1,28 @@
+---
+import Layout from '../layouts/Layout.astro';
+import fs from 'fs/promises';
+
+const rawFileContent = await fs.readFile('data.json', {
+  encoding: 'utf-8',
+});
+const data = JSON.parse(rawFileContent);
+const { medical, recreational } = data;
+---
+
+<Layout title="Welcome to Astro.">
+  <main class="w-full h-screen flex justify-center items-center bg-green-700">
+    <div class="flex flex-col items-center w-1/2 h-1/5">
+      <h1
+        class="text-white text-2xl sm:text-5xl lg:text-7xl font-extrabold mb-10"
+      >
+        Is it legal?
+      </h1>
+      <div
+        class="text-white text-base sm:text-2xl lg:text-5xl flex flex-col justify-around items-center font-semibold"
+      >
+        <p>Medical: {medical?.legal ? 'Yes' : 'No'}</p>
+        <p>Recreational: {recreational?.legal ? 'Yes' : 'No'}</p>
+      </div>
+    </div>
+  </main>
+</Layout>
